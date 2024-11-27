@@ -82,7 +82,7 @@ MICS Course 252 Fall 2024 (Kristy Westphal)
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
-We are given an Encase .E01 image: "Windows Image.E01" with a size of 10.6 GB. The image was ingested into Autopsy version 4.21. We are given the following objectives for the exercise, to get tour around the disc image.
+We are given an Encase .E01 image: "Windows Image.E01" with a size of 10.6 GB. The image was ingested into Autopsy version 4.21. We are given the following objectives for the exercise, to get thoroughly around the disc image.
 
 \subsection{Objectives}
 
@@ -97,10 +97,35 @@ Attempt to answer the following questions:
 	\item Anything else that you found that you want to highlight?
 \end{itemize}
 
+\subsection{Autopsy report}
+Autopsy has functionality to generate a report of the findings in various formats. I have published the report on github pages for reference in this report as:
+\begin{itemize}
+	\item	\cite{AutoReport}: \url{https://kjwesthoff.github.io/252-Lab13-AutopsyReport/}
+\end{itemize}
+
 
 \section{Image Ingestion}
-The file name indicates that the file is a Windows pc image.
+The file name indicates that the file is a Windows pc image. Anyway, the image was subjected to the full slew on ingest modules from the default Autopsy 4.21 installation (See Case Summary section of \cite{AutoReport}). The execution of various ingestion modules was a lengthy process (>24hrs. in this case). Autopsy can include custom ingestion modules that analyse the file hashes against known malware, in this case hashes were generated for all files (hence the lengthy ingest) and are thus ready for comparison against a database of known hashes (considered out of scope for this assignment), luckily most of Autopsy's functionality is available while it analyzes the files, and various result sections are populated as they become available.
 
+\section{Analysis Results}
+The Image holds two data sources; Windows Image.E01 and EvenMoreSecretStuff.vhd, the .vhd extension indicates that it is a Windows Virtual Hard Disc \cite{WindowsVHD}
+\subsection{Assignment Objectives Results}
+
+\subsubsection{Time Zone}
+Both data sources indicate: "America/Los Angeles", and the images were acquired on Mar. 20, 2019 in the evening around 8pm, see Appendix \ref{app:MetaData}
+
+\subsubsection{Operating System}
+Both the .E01 file name, the .vhd part and various artifacts indicate a Windows OS, the Autopsy report \cite{AutoReport} indicated:
+
+\begin{itemize}
+	\item OS: "Windows 10 Enterprise"
+	\item product ID "00329-00000-00003-AA856"
+	\item built for: "AMD64 architecture"
+	\item with the business like computer name: "DESKTOP-0QT8017"
+\end{itemize}
+
+\subsubsection{Event on January 1, 1980:}
+January 1 1980 at midnight is the epoch (beginning of time) for MS-DOS\footnote{I was about to write that it was when "Skynet became self-aware" but that was August 29, 1997 \cite{enwiki:Terminator}}. For unix systems it is January 1. 1970 (of course Microsoft had to have their own epoch). When computers get confused or are missing a time stamp they default to epoch. In this case it is apparently some google chrome files that is causing some confusion, see Appendix \ref{app:Jan1980}
 
 
 %
@@ -139,4 +164,41 @@ The file name indicates that the file is a Windows pc image.
 
 \clearpage
 \chapter{Appendices}
+\begin{appendices}
+
+	\section{Image MetaData}\label{app:MetaData}
+
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=0.5\linewidth]{WindowsImageMetadata.png}
+		\caption{Meta data for the Windows image.E01 Data source}
+		\label{fig:windowsIageMetadata}
+	\end{figure}
+
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{MoresecretStuffMetadata.png}
+		\caption{Meta data for the "EvenMoreSecretStuff" Data source}
+		\label{fig:evenMoreSecretStuffMetaData}
+	\end{figure}
+	\clearpage
+	\section{January 1. 1980}\label{app:Jan1980}
+
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{Jan1980.png}
+		\caption{Timeline results for January 1. 1980}
+		\label{fig:Jan1980}
+	\end{figure}
+
+
+
+\end{appendices}
+
+
+
+
 \end{document}
