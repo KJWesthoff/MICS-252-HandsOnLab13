@@ -127,26 +127,29 @@ Both the .E01 file name, the .vhd part and various artifacts indicate a Windows 
 \subsubsection{Event on January 1, 1980:}
 January 1 1980 at midnight is the epoch (beginning of time) for MS-DOS\footnote{I was about to write that it was when "Skynet became self-aware" but that was August 29, 1997 \cite{enwiki:Terminator}}. For unix systems it is January 1. 1970 (of course Microsoft had to have their own epoch). When computers get confused or are missing a time stamp they default to epoch. In this case it is apparently some google chrome files that is causing some confusion, see Appendix \ref{app:Jan1980}
 
-
-%
-%\begin{figure}[!h] % Single column :figure	
-%	\centering
-%	\includegraphics[width=1\linewidth]{Autopsy4_2:w1.png}
-%	\caption{Autopsy version 4.21, installed desktop application}
-%	\label{fig:Autopsy4_21}
-%\end{figure}
-%
+\subsubsection{IP of "Suspect Drive"}
 
 
 
 
+\subsubsection{EvenMoreSecretStuff.vhd}
+The .vhd extension suggests it is a "Virtual Hard Disc", the format is related to Microsoft Windows\footnote{Microsof have relased a specification and promised not to change it so others also can use the .vhd format \cite{VHD_Wiki}} and is used to host a separate hard drive on the file system with features such as its own partitions, a file system, etc. all living in a file on the host operating system \cite{VHD_Wiki}. The .vhd format is used when hosting a virtual machine on a windows pc. Autopsy identified it as an NTFS file system, accessing it shows "Unallocated Blocks" and it seems to be encrypted (Autopsy identified vol 2 is as encrypted using bitlocker), see Appendix \ref{app:SecretDriveEncrypted}.
+
+
+\subsubsection{Do any of the suspicious items discovered look suspicious?}
 
 
 
+
+\subsubsection{Other Suspicious Things}
 
 
 
 \section{Conclusion}
+
+
+
+
 
 \clearpage
 \printbibliography % Output the bibliography   
@@ -183,6 +186,8 @@ January 1 1980 at midnight is the epoch (beginning of time) for MS-DOS\footnote{
 		\caption{Meta data for the "EvenMoreSecretStuff" Data source}
 		\label{fig:evenMoreSecretStuffMetaData}
 	\end{figure}
+
+
 	\clearpage
 	\section{January 1. 1980}\label{app:Jan1980}
 
@@ -192,6 +197,16 @@ January 1 1980 at midnight is the epoch (beginning of time) for MS-DOS\footnote{
 		\includegraphics[width=1\linewidth]{Jan1980.png}
 		\caption{Timeline results for January 1. 1980}
 		\label{fig:Jan1980}
+	\end{figure}
+
+	\clearpage
+	\section{VHD file encrypted}\label{app:SecretDriveEncrypted}
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{EncryptionDetected.png}
+		\caption{The "EvenMoreSecretStuff" virtual drive, seems encrypted using bitlocker}
+		\label{fig:MoreSecretStuffEncrypted}
 	\end{figure}
 
 
