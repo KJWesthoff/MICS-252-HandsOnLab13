@@ -82,11 +82,12 @@ MICS Course 252 Fall 2024 (Kristy Westphal)
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
-We are given an Encase .E01 image: "Windows Image.E01" with a size of 10.6 GB. The image was ingested into Autopsy version 4.21. We are given the following objectives for the exercise, to get thoroughly around the disc image.
+We are given an Encase .E01 image: "Windows Image.E01" with a size of 10.6 GB. The image was ingested into Autopsy version 4.21 (a lengthy process). Some of the ingress modules do not run under Linux, these include "Yara" (runs rules checking files for malware) and "Plaso" which extracts information from the windows registry
+of the image.
 
 \subsection{Objectives}
-
-Attempt to answer the following questions:
+We are given the following objectives for the exercise, to get thoroughly around the disc image:
+"Attempt to answer the following questions:"
 \begin{itemize}
 	\item What time zone is the image set in?
 	\item What Operating System is the suspect drive using?
@@ -105,7 +106,7 @@ Autopsy has functionality to generate a report of the findings in various format
 
 
 \section{Image Ingestion}
-The file name indicates that the file is a Windows pc image. Anyway, the image was subjected to the full slew on ingest modules from the default Autopsy 4.21 installation (See Case Summary section of \cite{AutoReport}). The execution of various ingestion modules was a lengthy process (>24hrs. in this case). Autopsy can include custom ingestion modules that analyse the file hashes against known malware, in this case hashes were generated for all files (hence the lengthy ingest) and are thus ready for comparison against a database of known hashes (considered out of scope for this assignment), luckily most of Autopsy's functionality is available while it analyzes the files, and various result sections are populated as they become available.
+The file name indicates that the file is a Windows pc image. The image was subjected to the ingest modules from the default Autopsy 4.21 installation (See Case Summary section of \cite{AutoReport}). The execution of various ingestion modules was a lengthy process (>24hrs. in this case). Autopsy can include custom ingestion modules that analyse the file hashes against known malware, in this case hashes were generated for all files (hence the lengthy ingest) and are thus ready for comparison against a database of known hashes (considered out of scope for this assignment). Luckily most of Autopsy's functionality is available while it analyzes the files, and various result sections are populated in the GUI as they become available.
 
 \section{Analysis Results}
 The Image holds two data sources; Windows Image.E01 and EvenMoreSecretStuff.vhd, the .vhd extension indicates that it is a Windows Virtual Hard Disc \cite{WindowsVHD}
@@ -128,11 +129,11 @@ Both the .E01 file name, the .vhd part and various artifacts indicate a Windows 
 January 1 1980 at midnight is the epoch (beginning of time) for MS-DOS\footnote{I was about to write that it was when "Skynet became self-aware" but that was August 29, 1997 \cite{enwiki:Terminator}}. For unix systems it is January 1. 1970 (of course Microsoft had to have their own epoch). When computers get confused or are missing a time stamp they default to epoch. In this case it is apparently some google chrome files that is causing some confusion, see Appendix \ref{app:Jan1980}
 
 \subsubsection{IP of "Suspect Drive"}
-It appears that the machine was on a local network with IP address 10.0.1.5, when searching for IPv4 addresses it shows up second most after 6.0.0.0 (which i think is not an ip address in this context, but associated with version of "Microsoft-Windows-ServicingStack") and the files 10.0.1.5 shows up in are associated with the amd64 cpu architecture.
+It appears that the machine was on a local network with IP address 10.0.1.5, when searching for IPv4 addresses it shows up second most after 6.0.0.0 (which I think is not an ip address in this context, but associated with version of "Microsoft-Windows-ServicingStack"), see Appendix \ref{app:IpHits}. The ip 10.0.1.5 shows up in files also containing the amd64 CPU architecture.
 
 
 \subsubsection{EvenMoreSecretStuff.vhd}
-The .vhd extension suggests it is a "Virtual Hard Disc", the format is related to Microsoft Windows\footnote{Microsof have relased a specification and promised not to change it so others also can use the .vhd format \cite{VHD_Wiki}} and is used to host a separate hard drive on the file system with features such as its own partitions, a file system, etc. all living in a file on the host operating system \cite{VHD_Wiki}. The .vhd format is used when hosting a virtual machine on a windows pc. Autopsy identified it as an NTFS file system, accessing it shows "un-allocated Blocks" and it seems to be encrypted (Autopsy identified vol 2 is as encrypted using bitlocker), see Appendix \ref{app:SecretDriveEncrypted}.
+The .vhd extension suggests it is a "Virtual Hard Disc", the format is related to Microsoft Windows\footnote{Microsof have relased a specification and promised not to change it so others also can use the .vhd format \cite{VHD_Wiki}} and is used to host a separate hard drive on the file system with features such as its own partitions, file system etc. but, the .vhd files 'live' in a file on the host operating system \cite{VHD_Wiki}. The .vhd format is used when hosting a virtual machine on a windows pc. Autopsy identified it as an NTFS file system, accessing it shows "un-allocated Blocks" and it seems to be encrypted (Autopsy identified that "vol 2" is as encrypted using bitlocker), see Appendix \ref{app:SecretDriveEncrypted}.
 
 
 \subsubsection{Do any of the suspicious items discovered look suspicious?}
@@ -141,7 +142,7 @@ The .vhd extension suggests it is a "Virtual Hard Disc", the format is related t
 
 
 \subsubsection{Other Suspicious Things}
-
+I think the recent download (via chrome) and subsequent installation of teamviewer looks suspicious, it is often used by scammers to take control of a victims computer.
 
 
 \section{Conclusion}
@@ -207,6 +208,17 @@ The .vhd extension suggests it is a "Virtual Hard Disc", the format is related t
 		\caption{The "EvenMoreSecretStuff" virtual drive, seems encrypted using bitlocker}
 		\label{fig:MoreSecretStuffEncrypted}
 	\end{figure}
+
+	\clearpage
+	\section{IP Hits}\label{app:IpHits}
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{ip-hits.png}
+		\caption{Hits searching for ip v.4 addresses, the 6.0.0.0 hit is associated with the version of a windows subsystem and it not an IP in this context}
+		\label{fig:IpHits}
+	\end{figure}
+
 
 
 
