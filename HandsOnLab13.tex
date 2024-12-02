@@ -128,12 +128,11 @@ Both the .E01 file name, the .vhd part and various artifacts indicate a Windows 
 January 1 1980 at midnight is the epoch (beginning of time) for MS-DOS\footnote{I was about to write that it was when "Skynet became self-aware" but that was August 29, 1997 \cite{enwiki:Terminator}}. For unix systems it is January 1. 1970 (of course Microsoft had to have their own epoch). When computers get confused or are missing a time stamp they default to epoch. In this case it is apparently some google chrome files that is causing some confusion, see Appendix \ref{app:Jan1980}
 
 \subsubsection{IP of "Suspect Drive"}
-
-
+It appears that the machine was on a local network with IP address 10.0.1.5, when searching for IPv4 addresses it shows up second most after 6.0.0.0 (which i think is not an ip address in this context, but associated with version of "Microsoft-Windows-ServicingStack") and the files 10.0.1.5 shows up in are associated with the amd64 cpu architecture.
 
 
 \subsubsection{EvenMoreSecretStuff.vhd}
-The .vhd extension suggests it is a "Virtual Hard Disc", the format is related to Microsoft Windows\footnote{Microsof have relased a specification and promised not to change it so others also can use the .vhd format \cite{VHD_Wiki}} and is used to host a separate hard drive on the file system with features such as its own partitions, a file system, etc. all living in a file on the host operating system \cite{VHD_Wiki}. The .vhd format is used when hosting a virtual machine on a windows pc. Autopsy identified it as an NTFS file system, accessing it shows "Unallocated Blocks" and it seems to be encrypted (Autopsy identified vol 2 is as encrypted using bitlocker), see Appendix \ref{app:SecretDriveEncrypted}.
+The .vhd extension suggests it is a "Virtual Hard Disc", the format is related to Microsoft Windows\footnote{Microsof have relased a specification and promised not to change it so others also can use the .vhd format \cite{VHD_Wiki}} and is used to host a separate hard drive on the file system with features such as its own partitions, a file system, etc. all living in a file on the host operating system \cite{VHD_Wiki}. The .vhd format is used when hosting a virtual machine on a windows pc. Autopsy identified it as an NTFS file system, accessing it shows "un-allocated Blocks" and it seems to be encrypted (Autopsy identified vol 2 is as encrypted using bitlocker), see Appendix \ref{app:SecretDriveEncrypted}.
 
 
 \subsubsection{Do any of the suspicious items discovered look suspicious?}
