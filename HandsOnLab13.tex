@@ -82,11 +82,11 @@ MICS Course 252 Fall 2024 (Kristy Westphal)
 %----------------------------------------------------------------------------------------
 
 \section{Introduction}
-We are given an Encase .E01 image: "Windows Image.E01" with a size of 10.6 GB. The image was ingested into Autopsy version 4.21 (a lengthy process). Some of the ingress modules do not run under Linux, these include "Yara" (runs rules checking files for malware) and "Plaso" which extracts information from the windows registry
+We are given an Encase .E01 image: "Windows Image.E01" with a size of 10.6 GB. The image was ingested into Autopsy version 4.21 (a lengthy process).
 of the image.
 
 \subsection{Objectives}
-We are given the following objectives for the exercise, to get thoroughly around the disc image:
+We are given the following objective for the exercise to get thoroughly around the disc image: \\
 "Attempt to answer the following questions:"
 \begin{itemize}
 	\item What time zone is the image set in?
@@ -99,18 +99,19 @@ We are given the following objectives for the exercise, to get thoroughly around
 \end{itemize}
 
 \subsection{Autopsy report}
-Autopsy has functionality to generate a report of the findings in various formats. I have published the report on github pages for reference in this report as:
+Autopsy has functionality to generate a report of the findings in various formats. I have published the report on github pages for reference in this report here:
 \begin{itemize}
 	\item	\cite{AutoReport}: \url{https://kjwesthoff.github.io/252-Lab13-AutopsyReport/}
 \end{itemize}
 
 
 \section{Image Ingestion}
-The file name indicates that the file is a Windows pc image. The image was subjected to the ingest modules from the default Autopsy 4.21 installation (See Case Summary section of \cite{AutoReport}). The execution of various ingestion modules was a lengthy process (>24hrs. in this case). Autopsy can include custom ingestion modules that analyse the file hashes against known malware, in this case hashes were generated for all files (hence the lengthy ingest) and are thus ready for comparison against a database of known hashes (considered out of scope for this assignment). Luckily most of Autopsy's functionality is available while it analyzes the files, and various result sections are populated in the GUI as they become available.
+The file name indicates that the file is a Windows pc image. The image was subjected to the ingest modules from the default Autopsy 4.21 installation (See Case Summary section of \cite{AutoReport}). The execution of various ingestion modules was a lengthy process (>24hrs. in this case). Some of the ingress modules do not run under Linux, these include "Yara" (runs rules checking files for malware) and "Plaso" which extracts information from the windows registry of the image.
+Autopsy can include custom ingestion modules that analyse the file hashes against known malware, in this case hashes were generated for all files (hence the lengthy ingest) and are thus ready for comparison against a database of known hashes (considered out of scope for this assignment). Luckily most of Autopsy's functionality is available while it analyzes the files, and various result sections are populated in the GUI as they become available.
 
 \section{Analysis Results}
 The Image holds two data sources; Windows Image.E01 and EvenMoreSecretStuff.vhd, the .vhd extension indicates that it is a Windows Virtual Hard Disc \cite{WindowsVHD}
-\subsection{Assignment Objectives Results}
+\subsection{Assignment Objectives}
 
 \subsubsection{Time Zone}
 Both data sources indicate: "America/Los Angeles", and the images were acquired on Mar. 20, 2019 in the evening around 8pm, see Appendix \ref{app:MetaData}
@@ -137,16 +138,23 @@ The .vhd extension suggests it is a "Virtual Hard Disc", the format is related t
 
 
 \subsubsection{Do any of the suspicious items discovered look suspicious?}
+Selma Bouvier\footnote{One of Marge Simpsons chain smoking sisters} Has a link to some virtual hard discs (.vhd) on her desktop with "Super Secret" in the filename one of them flagged by Autopsy see Figure \ref{fig:SelmaBouvierSecredStuff}, the file is empty, the other file is the encrypted MoreSecretStuff.vhd previously found by Autopsy.
+
+\begin{figure}[!ht] % Single column :figure	
+	\centering
+	\includegraphics[width=1\linewidth]{SelmaBouvierSecretStuff.png}
+	\caption{The "Selma Bouvier" user has some interesting things on her desktop}
+	\label{fig:SelmaBouvierSecredStuff}
+\end{figure}
 
 
-
-
+Poking some more Around Selma Bouvier's data revals a Readme.txt with a link to a Simpsons episode, where Homer gets hod of an "auto dialer" ST-5000. An .exe file named ST-5000 is also present in the profile's OneDrive.
 \subsubsection{Other Suspicious Things}
-I think the recent download (via chrome) and subsequent installation of teamviewer looks suspicious, it is often used by scammers to take control of a victims computer.
+I think the recent download (via chrome) and subsequent installation and execution of teamviewer in February and March of 2019 looks suspicious, see details in Appendix \ref{app:TeamViewer} TeamViewer is often used by scammers to take control of a victims computer.
 
 
 \section{Conclusion}
-
+The disc image was ingested and analyzed using Autopsy, Ingestion is a lengthy process depending on which Autopsy analysis modules are run on the image. In general the exercise gave a good tour of Autopsy.
 
 
 
@@ -199,7 +207,6 @@ I think the recent download (via chrome) and subsequent installation of teamview
 		\label{fig:Jan1980}
 	\end{figure}
 
-	\clearpage
 	\section{VHD file encrypted}\label{app:SecretDriveEncrypted}
 
 	\begin{figure}[!h] % Single column :figure	
@@ -209,7 +216,6 @@ I think the recent download (via chrome) and subsequent installation of teamview
 		\label{fig:MoreSecretStuffEncrypted}
 	\end{figure}
 
-	\clearpage
 	\section{IP Hits}\label{app:IpHits}
 
 	\begin{figure}[!h] % Single column :figure	
@@ -217,6 +223,30 @@ I think the recent download (via chrome) and subsequent installation of teamview
 		\includegraphics[width=1\linewidth]{ip-hits.png}
 		\caption{Hits searching for ip v.4 addresses, the 6.0.0.0 hit is associated with the version of a windows subsystem and it not an IP in this context}
 		\label{fig:IpHits}
+	\end{figure}
+
+	\section{TeamViewer}\label{app:TeamViewer}
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{TeamViewerDownload.png}
+		\caption{TeamViewer was downloaded on January 25 2019 at 12:39pm}
+		\label{fig:TeamViewerDownload}
+	\end{figure}
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{TeamViewerInstallation.png}
+		\caption{TeamViewer was installed on February 3rd 2019 at at 9:50pm}
+		\label{fig:TeamViewerInstallation}
+	\end{figure}
+
+
+	\begin{figure}[!h] % Single column :figure	
+		\centering
+		\includegraphics[width=1\linewidth]{TeamViewerExe.png}
+		\caption{TeamViewer was last run on February 20rd 2019 at at 1:57pm}
+		\label{fig:TeamViewerexe}
 	\end{figure}
 
 
